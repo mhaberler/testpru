@@ -13,6 +13,9 @@ AR=arpru
 OBJDUMP=dispru
 STRIP=strippru
 
+INCLUDE=/opt/ti/PRUCGT1.0.0B1/include
+LIBDIR=/opt/ti/PRUCGT1.0.0B1/lib
+
 # -v3				PRU version 3
 # --c99 			C99 support
 # --gcc 			Enable GCC extensions
@@ -22,11 +25,12 @@ STRIP=strippru
 # -ppa				Continue after generating deps
 # -DDEBUG			Enable debug
 # CFLAGS= -v3 --c99 --gcc -O3 --printf_support=minimal -ppd -ppa -DDEBUG 
-CFLAGS= -v3 --c99 --gcc -O3 --printf_support=minimal -ppd -ppa
+# -i				include path
+CFLAGS:= -v3 --c99 --gcc -O3 --printf_support=minimal -ppd -ppa -I=$(INCLUDE)
 
 # -cr 				Link using RAM auto init model (loader assisted)
 # -x				Reread libs until no unresolved symbols found
-LDFLAGS=-cr --diag_warning=225 -llnk-am33xx.cmd -x
+LDFLAGS=-cr --diag_warning=225 -llnk-am33xx.cmd -x --search_path=$(LIBDIR)
 
 STRIPFLAGS=-p
 
